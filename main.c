@@ -2,9 +2,14 @@
 #include "../header/Drawn-Frame.h"
 
 int main (){
-   
-    char** cuzin = Create_frame(20,80);
 
-    Drawn_frame(cuzin,20,80);
+    int y = 80;
+    int x = 20;
+
+    Frame quadro = {Create_frame(x,y), x, y, 1};
+
+    Generate_asterisks(&quadro, 3);
+
+    Drawn_frame(quadro);
 }
 

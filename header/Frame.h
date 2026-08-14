@@ -1,17 +1,17 @@
 #ifndef FRAME_H
 #define FRAME_H
 
-typedef struct Bank_Frame{
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Frame{
+
+    char** frame; // a matriz quadro
+    int xLinha, yColuna, pos;
+
     
-    char*** fremes; // Armazena todos os desenhos
-    int qt_frames; // Quantidade de desenhos
+}Frame;
 
-}Bank_Frame;
-
-
-//Função para criar o banco de quadros, com apenas 1 quadro.
-
-void Create_bank(Bank_Frame nubank, int xLinha, int yColuna);
 
 
 #endif

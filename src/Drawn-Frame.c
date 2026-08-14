@@ -28,9 +28,9 @@ char** Create_frame(int xLinha, int yColuna){
 
     for(int i = 0; i < xLinha; i++){
         for(int j = 0; j < yColuna; j++){
-            if(i == (xLinha-xLinha) || i == (xLinha-1)){
+            if(i == 0 || i == xLinha-1){
                 frame[i][j] = '-';
-            }else if (j == (yColuna-yColuna) || j == (yColuna-1)){
+            }else if (j == 0 || j == yColuna-1){
                 frame[i][j] = '|';                
             }else
                 frame[i][j] = ' '; 
@@ -40,13 +40,30 @@ char** Create_frame(int xLinha, int yColuna){
     return frame;
 }
 
-void Drawn_frame(char** frame, int xLinha, int yColuna){
+void Drawn_frame(Frame frame){
 
-    for(int i = 0; i < xLinha; i++){
-        for(int j = 0; j < yColuna; j++){
-            printf("%c", frame[i][j]);
+    for(int i = 0; i < frame.xLinha; i++){
+        for(int j = 0; j < frame.yColuna; j++){
+            printf("%c", frame.frame[i][j]);
         }
         printf("\n");
     }
 
+}
+
+void Generate_asterisks(Frame* frame, int quantidade){
+
+    srand(time(NULL));
+
+   while(quantidade > 0){
+        int xRand = (rand() % frame->xLinha);;
+        int yRand = (rand() % frame->yColuna);
+
+        if(xRand > 0 && xRand < frame->xLinha-1 && yRand > 0 && yRand < frame->yColuna-1){
+            if(frame->frame[xRand][yRand] == ' ' && quantidade > 0){
+                    frame->frame[xRand][yRand] = '*';
+                    quantidade--;
+            }      
+        } 
+   }
 }
