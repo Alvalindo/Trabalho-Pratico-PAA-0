@@ -4,12 +4,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 typedef struct Frame{
 
     char** frame; // a matriz quadro
-    int xLinha, yColuna, pos;
+    int xColuna, yLinha, pos;
 
-    
 }Frame;
 
 

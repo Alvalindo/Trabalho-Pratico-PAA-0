@@ -1,17 +1,17 @@
 #include "../header/Drawn-Frame.h"
 
 
-char** Create_frame(int xLinha, int yColuna){
+char** Create_frame(int yLinha, int xColuna){
 
     // Alocando linha e colunas da matriz;
-    char** frame = malloc(xLinha * sizeof(char *));
+    char** frame = malloc(yLinha * sizeof(char *));
     if(frame == NULL){
             perror("Erro na alocação");
             return NULL;
         }
 
-    for(int i = 0; i < xLinha; i++){
-        frame[i] = malloc(yColuna * sizeof(char));
+    for(int i = 0; i < yLinha; i++){
+        frame[i] = malloc(xColuna * sizeof(char));
 
         //Verifica erro, se positivo, libera a memória já alocada
         if(frame[i] == NULL){
@@ -26,11 +26,11 @@ char** Create_frame(int xLinha, int yColuna){
 
     //Desenha a moldura do quadro
 
-    for(int i = 0; i < xLinha; i++){
-        for(int j = 0; j < yColuna; j++){
-            if(i == 0 || i == xLinha-1){
+    for(int i = 0; i < yLinha; i++){
+        for(int j = 0; j < xColuna; j++){
+            if(i == 0 || i == yLinha-1){
                 frame[i][j] = '-';
-            }else if (j == 0 || j == yColuna-1){
+            }else if (j == 0 || j == xColuna-1){
                 frame[i][j] = '|';                
             }else
                 frame[i][j] = ' '; 
@@ -40,10 +40,21 @@ char** Create_frame(int xLinha, int yColuna){
     return frame;
 }
 
-void Drawn_frame(Frame frame, FILE *arquivo){
+void Drawn_frame(Frame frame){
 
-    for(int i = 0; i < frame.xLinha; i++){
-        for(int j = 0; j < frame.yColuna; j++){
+    for(int i = 0; i < frame.yLinha; i++){
+        for(int j = 0; j < frame.xColuna; j++){
+            printf("%c", frame.frame[i][j]);
+        }
+        printf("\n");
+    }
+
+}
+
+void Drawn_frame_txt(Frame frame, FILE *arquivo){
+
+    for(int i = 0; i < frame.yLinha; i++){
+        for(int j = 0; j < frame.xColuna; j++){
             fprintf(arquivo, "%c", frame.frame[i][j]);
         }
         fprintf(arquivo,"\n");
@@ -56,17 +67,17 @@ void GenerateALL_drawns(int xldesenho, int yCdesenho, Frame *frame, char desenho
     srand(time(NULL));
 
     //Verifica se a quantidade de desenho cabe no quadro
-    if(((xldesenho * yCdesenho) * quantidade) <= ((frame->xLinha - 2) * (frame->yColuna - 2))){
+    if(((xldesenho * yCdesenho) * quantidade) <= ((frame->yLinha - 2) * (frame->xColuna - 2))){
         //Colar o desenho na quadro
         while(quantidade > 0){
-            int xRand = rand() % (frame->xLinha);
-            int yRand = rand() % (frame->yColuna);
+            int xRand = rand() % (frame->yLinha);
+            int yRand = rand() % (frame->xColuna);
 
             //Bloqueia as bordas
-            if(xRand > 0 && xRand < frame->xLinha-1 && yRand > 0 && yRand < frame->yColuna-1){
+            if(xRand > 0 && xRand < frame->yLinha-1 && yRand > 0 && yRand < frame->xColuna-1){
 
                 //Identifica se o desenho cabe na posição gerada aleatoriamente
-                if(xRand + xldesenho < frame->xLinha && yRand + yCdesenho < frame->yColuna){
+                if(xRand + xldesenho < frame->yLinha && yRand + yCdesenho < frame->xColuna){
 
                     int colision = 0;
 
@@ -94,7 +105,7 @@ void GenerateALL_drawns(int xldesenho, int yCdesenho, Frame *frame, char desenho
             } 
         }
     }else{
-        printf("Quantidade exedida, utilize no maximo: %d figuras\n", (frame->xLinha - 2) * (frame->yColuna - 2));
+        printf("Quantidade exedida, utilize no maximo: %d figuras\n", (frame->yLinha - 2) * (frame->xColuna - 2));
         return;
     }
 }
@@ -103,8 +114,7 @@ void Drawns_EsPoint(int xldesenho, int yCdesenho, Frame *frame, char desenho[xld
 
     for(int i = 0; i < xldesenho; i++){
         for(int j = 0; j < yCdesenho; j++){
-            frame->frame[i+x][j+y] = desenho[i][j];
-                                
+            frame->frame[i+x][j+y] = desenho[i][j];                        
         }
     }
 }

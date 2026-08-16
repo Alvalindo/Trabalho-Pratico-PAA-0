@@ -25,7 +25,7 @@ endif
 all:
 #faco a compilacao dos arquivos do src (.c) e transformo-os em objetos
 	$(CC) -c $(SRC)/Drawn-Frame.c $(HEADER) -o $(OBJ)/Drawn-Frame.o
-	$(CC) -c $(SRC)/JGP-Convert.c $(HEADER) -o $(OBJ)/JGP-Convert.o
+	$(CC) -c $(SRC)/JGP-Convert-ASCII.c $(HEADER) -o $(OBJ)/JGP-Convert-ASCII.o
 	$(CC) -c $(SRC)/Frame_Bank.c $(HEADER) -o $(OBJ)/Frame_Bank.o
 	$(CC) -c $(SRC)/Frame.c $(HEADER) -o $(OBJ)/Frame.o
 

@@ -11,7 +11,10 @@
 char** Create_frame(int xLinha, int yColuna);
 
 //Função de desenha o quadro no terminal
-void Drawn_frame(Frame frame, FILE *arquivo);
+void Drawn_frame(Frame frame);
+
+//Função de desenha o quadro no txt
+void Drawn_frame_txt(Frame frame, FILE *arquivo);
 
 //Função que desenha os asteriscos aleatoriamente
 void Generate_asterisks(Frame* frame, int quantidade);

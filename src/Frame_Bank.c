@@ -92,7 +92,7 @@ void Free_bank(Frame_Bank* Bframe){
 
         node* proximo = aux->prox;
 
-        for(int i = 0; i < aux->Uframe.xLinha; i++){
+        for(int i = 0; i < aux->Uframe.yLinha; i++){
             free(aux->Uframe.frame[i]);
         }
         free(aux->Uframe.frame);
