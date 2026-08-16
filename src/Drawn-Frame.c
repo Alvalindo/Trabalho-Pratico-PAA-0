@@ -40,30 +40,71 @@ char** Create_frame(int xLinha, int yColuna){
     return frame;
 }
 
-void Drawn_frame(Frame frame){
+void Drawn_frame(Frame frame, FILE *arquivo){
 
     for(int i = 0; i < frame.xLinha; i++){
         for(int j = 0; j < frame.yColuna; j++){
-            printf("%c", frame.frame[i][j]);
+            fprintf(arquivo, "%c", frame.frame[i][j]);
         }
-        printf("\n");
+        fprintf(arquivo,"\n");
     }
 
 }
 
-void Generate_asterisks(Frame* frame, int quantidade){
+void GenerateALL_drawns(int xldesenho, int yCdesenho, Frame *frame, char desenho[xldesenho][yCdesenho], int quantidade){
 
     srand(time(NULL));
 
-   while(quantidade > 0){
-        int xRand = (rand() % frame->xLinha);;
-        int yRand = (rand() % frame->yColuna);
+    //Verifica se a quantidade de desenho cabe no quadro
+    if(((xldesenho * yCdesenho) * quantidade) <= ((frame->xLinha - 2) * (frame->yColuna - 2))){
+        //Colar o desenho na quadro
+        while(quantidade > 0){
+            int xRand = rand() % (frame->xLinha);
+            int yRand = rand() % (frame->yColuna);
 
-        if(xRand > 0 && xRand < frame->xLinha-1 && yRand > 0 && yRand < frame->yColuna-1){
-            if(frame->frame[xRand][yRand] == ' ' && quantidade > 0){
-                    frame->frame[xRand][yRand] = '*';
-                    quantidade--;
-            }      
-        } 
-   }
+            //Bloqueia as bordas
+            if(xRand > 0 && xRand < frame->xLinha-1 && yRand > 0 && yRand < frame->yColuna-1){
+
+                //Identifica se o desenho cabe na posição gerada aleatoriamente
+                if(xRand + xldesenho < frame->xLinha && yRand + yCdesenho < frame->yColuna){
+
+                    int colision = 0;
+
+                    //Verifica colisão
+                    for(int i = 0; i < xldesenho; i++){
+                        for(int j = 0; j < yCdesenho; j++){
+                            if(frame->frame[i+xRand][j+yRand] != ' ' && desenho[i][j] != ' '){
+                                colision = 1;
+                               //printf("Colidiu\n");
+                            }
+                        }
+                    }
+
+                    //Se não colidiu desenha o desenho
+                    if(colision == 0){
+                    for(int i = 0; i < xldesenho; i++){
+                        for(int j = 0; j < yCdesenho; j++){
+                                frame->frame[i+xRand][j+yRand] = desenho[i][j];
+                                colision = 0;
+                            }
+                        }
+                        quantidade--;
+                    }    
+                }
+            } 
+        }
+    }else{
+        printf("Quantidade exedida, utilize no maximo: %d figuras\n", (frame->xLinha - 2) * (frame->yColuna - 2));
+        return;
+    }
+}
+
+void Drawns_EsPoint(int xldesenho, int yCdesenho, Frame *frame, char desenho[xldesenho][yCdesenho], int x, int y){
+
+    for(int i = 0; i < xldesenho; i++){
+        for(int j = 0; j < yCdesenho; j++){
+            frame->frame[i+x][j+y] = desenho[i][j];
+                                
+        }
+    }
 }
