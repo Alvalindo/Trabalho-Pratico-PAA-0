@@ -52,27 +52,17 @@ void Convert_to_ASCII(const char* NomeImage, Frame* frame){
     
             //IDEIA: Implementar diferentes conjuntos de caracteres. 
             //Distribui os caracteres baseado nas cores
-            if(tom >= 0 && tom <= 25){
-                matrizF[y][x] = '@';
-            }else if(tom >= 26 && tom <= 50){
-                matrizF[y][x] = '%';
-            }else if(tom >= 51 && tom <= 75){
-                matrizF[y][x] = '#';
-            }else if(tom >= 76 && tom <= 100){
-                matrizF[y][x] = '*';
-            }else if(tom >= 101 && tom <= 125){
-                matrizF[y][x] = '+';
-            }else if(tom >= 126 && tom <= 150){
-                matrizF[y][x] = '=';
-            }else if(tom >= 151 && tom <= 175){
-                matrizF[y][x] = '-';
-            }else if(tom >= 176 && tom <= 200){
-                matrizF[y][x] = ':';
-            }else if(tom >= 201 && tom <= 225){
-                matrizF[y][x] = '.';
-            }else if(tom >= 226 && tom <= 255){
-                matrizF[y][x] = ' ';
-            }
+            if(tom >= 0 && tom <= 25) matrizF[y][x] = '@';
+            else if(tom >= 26 && tom <= 50) matrizF[y][x] = '%';
+            else if(tom >= 51 && tom <= 75) matrizF[y][x] = '#';
+            else if(tom >= 76 && tom <= 100) matrizF[y][x] = '*';
+            else if(tom >= 101 && tom <= 125) matrizF[y][x] = '+';
+            else if(tom >= 126 && tom <= 150) matrizF[y][x] = '=';
+            else if(tom >= 151 && tom <= 175) matrizF[y][x] = '-';
+            else if(tom >= 176 && tom <= 200) matrizF[y][x] = ':';
+            else if(tom >= 201 && tom <= 225) matrizF[y][x] = '.';
+            else if(tom >= 226 && tom <= 255) matrizF[y][x] = ' ';
+            
         }
     }
 
